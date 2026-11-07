@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ========== 主题：星空夜樱 ==========
+ * 在 @theme 里定义的 --color-xxx 会自动生成 Tailwind class：
+ * bg-xxx、text-xxx、border-xxx，还能加透明度，比如 bg-sakura/20
+ */
+@theme {
+  --color-night: #0f0d1f; /* 背景：深夜紫 */
+  --color-night-light: #1a1730; /* 稍亮一点的背景，用于代码块等 */
+  --color-sakura: #f9a8d4; /* 主色：樱花粉 */
+  --color-lavender: #a78bfa; /* 辅色：淡紫 */
+  --color-ink: #e9e6f5; /* 正文文字 */
+  --color-mist: #9b96b5; /* 次要文字 */
+}
+
+/* 字体：英文用 Geist（在 layout.tsx 里加载），中文回退到系统字体 */
+@theme inline {
+  --font-sans: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* 自定义 utility：毛玻璃卡片，用法 className="glass" */
+@utility glass {
+  background-color: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(12px);
+}
+
+/* 背景：几层小星星 + 顶部紫色光晕 + 右下角樱花色光晕 */
+body {
+  background-color: var(--color-night);
+  color: var(--color-ink);
+  background-image:
+    radial-gradient(1px 1px at 25px 35px, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1px 1px at 120px 80px, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 170px 150px, rgb(249 168 212 / 0.5), transparent),
+    radial-gradient(1px 1px at 60px 170px, rgb(255 255 255 / 0.3), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(167 139 250 / 0.18), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgb(249 168 212 / 0.08), transparent);
+  background-size:
+    200px 200px,
+    200px 200px,
+    200px 200px,
+    200px 200px,
+    100% 100%,
+    100% 100%;
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: rgb(249 168 212 / 0.35);
+}
+
+/* ========== 文章正文（Markdown 渲染结果）的样式 ========== */
+.markdown {
+  line-height: 1.85;
+}
+.markdown > * + * {
+  margin-top: 1.1em;
+}
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 2em;
+}
+.markdown h1 {
+  font-size: 1.875rem;
+}
+.markdown h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+.markdown h3 {
+  font-size: 1.25rem;
+}
+.markdown a {
+  color: var(--color-sakura);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.markdown ul {
+  list-style: disc;
+  padding-left: 1.5em;
+}
+.markdown ol {
+  list-style: decimal;
+  padding-left: 1.5em;
+}
+.markdown li + li {
+  margin-top: 0.3em;
+}
+.markdown blockquote {
+  border-left: 3px solid var(--color-lavender);
+  padding-left: 1em;
+  color: var(--color-mist);
+}
+.markdown code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: rgb(255 255 255 / 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3em;
+}
+.markdown pre {
+  background-color: var(--color-night-light);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.75rem;
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+.markdown pre code {
+  background: none;
+  padding: 0;
+}
+.markdown img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+}
+.markdown hr {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.markdown th,
+.markdown td {
+  border: 1px solid rgb(255 255 255 / 0.1);
+  padding: 0.5em 0.8em;
+}
